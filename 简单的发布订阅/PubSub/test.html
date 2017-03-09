@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+	<script src="PubSub.js"></script>
+	<style>
+		.sec {
+			width: 200px;
+			height: 100px;
+			margin: 20px;
+		}
+		.sec1 {
+			border: 1px solid red;
+		}
+		.sec2 {
+			border: 1px solid green;
+		}
+	</style>
+</head>
+<body>
+	<div class="sec sec1">
+		<button id="btn1">关注</button>
+	</div>
+	<div class="sec sec2">
+		<button id="btn2">关注</button>
+	</div>
+	<script>
+		var focused = false,
+			oBtn1 = document.querySelector('#btn1'),
+			oBtn2 = document.querySelector('#btn2');
+		oBtn1.addEventListener('click', function(){
+			focused = !focused;
+			PubSub.deliver('user:focus');
+		}, false);
+		oBtn2.addEventListener('click', function(){
+			focused = !focused;
+			PubSub.deliver('user:focus');
+		}, false);
+
+		PubSub.subscribe({
+			eventName: 'user:focus',
+			callback: function() {
+				if(focused) {
+					oBtn1.innerHTML = '已关注';
+					oBtn2.innerHTML = '已关注';
+				} else {
+					oBtn1.innerHTML = '关注';
+					oBtn2.innerHTML = '关注';
+				}
+			}
+		});
+	</script>
+</body>
+</html>
