@@ -1,0 +1,29 @@
+@charset "UTF-8";
+.page {
+    text-align: center;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.page a, .page .page-cur {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    margin: 0 4px;
+    text-decoration: none;
+    color: #000;
+}
+.page a:hover, .page .page-cur {
+    color: #fff;
+    background-color: #ff117e;
+    text-decoration: none;
+}
+.page-cur {
+    cursor: default;
+}
+.page .page-next, .page .page-pre {
+    width: 70px;
+}
