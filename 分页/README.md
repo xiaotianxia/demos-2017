@@ -1,4 +1,5 @@
 #简单的分页插件
+##用法：
 ```
 function renderPager(totalSize) {
     var pager = new Pager({
