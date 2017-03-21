@@ -1,4 +1,5 @@
 #简单的评级打分
+![demo](http://7xlxgg.com1.z0.glb.clouddn.com/test.gif "示意图")
 ##用法
 ```
 new StarScore({
