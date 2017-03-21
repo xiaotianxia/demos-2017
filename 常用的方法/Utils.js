@@ -121,5 +121,31 @@ var Utils = {
           r = window.location.search.substr(1).match(reg);
       if (r != null) return unescape(r[2]); 
       return null;
-    }
+   },
+
+   formateTime: function(timestamp, format) {
+      var format = format || 'yyyy-MM-dd hh:mm:ss',
+          date = new Date(parseInt(timestamp)),
+          list = [
+                  ['y+', date.getFullYear()],
+                  ['M+', date.getMonth() + 1],
+                  ['d+', date.getDate()],
+                  ['h+', date.getHours()],
+                  ['m+', date.getMinutes()],
+                  ['s+', date.getSeconds()],
+                  ['S+', date.getMilliseconds()],
+                  ['q+', Math.floor((date.getMonth() + 3) / 3)]
+            ];
+
+      for (var i = 0, l = list.length; i < l; i++) {
+         format = format.replace(new RegExp(list[i][0]), function(reg) {
+            var val = String(list[i][1]);
+            !i && (val = val.substr(val.length - reg.length));
+            reg.length > val.length && (val = '0' + val);
+            return val;
+         });
+      }
+
+      return format;
+   }
 };

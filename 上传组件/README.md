@@ -4,7 +4,7 @@
 function renderPicUpload() {
     var self = this;
     var coverUpload = new Upload($('#upload'), {
-        uploadType: 'image',
+        uploadType: 'image',//video
         MIN_PICSIZE: 1024,
         MAX_PICSIZE: 1024 * 1024 * 10,
         options: {

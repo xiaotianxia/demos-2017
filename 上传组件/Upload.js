@@ -7,7 +7,6 @@
     * 上传组件
     *
     * @class Upload
-    * @author LRain(leiyu86@gmail.com)
     * @param {HTMLElement} elem            需要触发执行上传的dom节点
     * @param {Object} config.onSelect      选择上传文件
     * @param {Object} config.onSelectError 选择上传文件出错
@@ -215,7 +214,6 @@
        * @method onSuccess
        */
       onSuccess: function (responseText) {
-        console.log(responseText);
          var json = $.parseJSON(responseText);
          json.name = this.file.name;
          this.config.onSuccess(json);
