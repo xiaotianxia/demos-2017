@@ -1,5 +1,6 @@
-#简单的分页插件
-##用法：
+# 简单的分页插件
+
+## 用法：
 ```
 function renderPager(totalSize) {
     var pager = new Pager({
@@ -17,3 +18,5 @@ function renderPager(totalSize) {
 }
 renderPager(105);//test
 ```
+
+<img src="http://7xlxgg.com1.z0.glb.clouddn.com/pager.gif" alt="示意图">

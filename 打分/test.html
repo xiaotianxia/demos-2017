@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <script src="starScore.js"></script>
+    <script src="http://img1.cache.netease.com/bobo/sp/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <style>
+        .s-star {
+            display: inline-block;
+            width: 29px;
+            height: 28px;
+            background-color: #000;
+            margin: 0 2px;
+            cursor: pointer;
+            background: url('http://img1.cache.netease.com/bobo/image/active/yinyangshi/star.png') 50% 50% no-repeat;
+        }
+        .s-star_active {
+            background: url('http://img1.cache.netease.com/bobo/image/active/yinyangshi/star_active.png') 50% 50% no-repeat;
+        }
+    </style>
+</head>
+<body>
+    <div class="s-score js-score">
+        <ul>
+            <li class="s-star star-trigger"></li>
+            <li class="s-star star-trigger"></li>
+            <li class="s-star star-trigger"></li>
+            <li class="s-star star-trigger"></li>
+            <li class="s-star star-trigger"></li>
+        </ul>
+    </div>
+    <script>
+        new StarScore({
+            container: $('.js-score'),
+            starClass: 's-star',
+            ativeStarClass: 's-star_active',
+            onClick: function(index) {
+                var score = [2, 4, 6, 8, 10][index],
+                    self = this;
+                $.ajax({
+                    url: '**',
+                    data: {
+                        
+                    },
+                    success: function(json) {
+                        alert(json.data);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
