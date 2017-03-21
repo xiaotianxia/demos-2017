@@ -1,21 +1,20 @@
 function Pager(opts) {
     this.options = {
-        size: 15,
-        maxButtons: 9,
-        itemCount: 0,
-        index: 1,
-        pageCount: 1,
-        nextText: 'next',
+        size: 15,       //每页项目个数
+        maxButtons: 9, //最多显示多少按钮，多出的用‘...’
+        itemCount: 0, //项目总数
+        index: 1,   //当前页
+        pageCount: 1, //页数
+        nextText: 'next', //按钮文案
         prevText: 'prev',
     };
-    this.container = null;
+    this.container = null; //分页Dom容器
     this._start = 1;
     this._end = 1;
     this.options.pageCount = Math.ceil(this.options.itemCount / this.options.size); // 总页数
     for (var o in opts) {
         this.options[o] = opts[o];
     };
-    this.staticDataCollection = [];
 }
 
 /**
@@ -58,13 +57,6 @@ Pager.prototype._calculate = function(index) {
     this._start = Math.max(1, this.options.index - parseInt(this.options.maxButtons / 2));
     this._end = Math.min(this.options.pageCount, this._start + this.options.maxButtons - 1);
     this._start = Math.max(1, this._end - this.options.maxButtons + 1);
-}
-
-Pager.prototype.page = function(rows) {
-    this._calculate();
-    var s_num = (this.index - 1) * this.options.size;
-    var e_num = this.index * this.options.size;
-    return rows.slice(s_num, e_num);
 }
 
 Pager.prototype.render = function(pagerWraper) {
@@ -135,29 +127,6 @@ Pager.prototype.bind = function() {
             return false;
         };
     };
-}
-
-/**
-* 静态数据分页
-* method getStaticData
-* @index{int}页码
-*/
-Pager.prototype.getStaticData = function(index) {
-    var collection = [];
-    if(this.options.size > this.staticDataCollection.length) {
-        return this.staticDataCollection;
-    } else if(index > this.options.pageCount) {
-        return [];
-    } else if (index <= this.options.pageCount) {
-       for (var i = 0; i < this.staticDataCollection.length; i++) {
-          for (var j = 0; j < this.options.size; j++) {
-             if (i == (index - 1) * this.options.size + j) {
-                collection.push(this.staticDataCollection[i]);
-             }
-          }
-       }
-       return collection;
-    }
 }
 
 Pager.prototype.changeIndex = function(index) {
