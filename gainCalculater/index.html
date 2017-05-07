@@ -57,7 +57,7 @@
                 tmp += Math.pow(x, i);
             }
             result = a * r * tmp;
-            $('.gain').html(result);
+            $('.gain').html(result.toFixed(4));
         }
         $('.calculate').click(function() {
             onCalculate();
