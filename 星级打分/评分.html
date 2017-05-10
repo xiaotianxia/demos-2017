@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="http://www.semantic-ui.cn/dist/semantic.min.css">
+	<title>Document</title>
+	<style>
+		
+
+	</style>
+</head>
+<body>
+  <span>大</span><div class="ui massive star rating" data-rating="1"></div><br>
+  <span>较大</span><div class="ui large star rating" data-rating="2"></div><br>
+  <span>不可点</span><div class="ui star rating" data-rating="2"></div>
+
+	<script src="http://www.semantic-ui.cn/javascript/library/jquery.min.js"></script>
+	<script src="http://www.semantic-ui.cn/dist/semantic.min.js"></script>
+	<script>
+		$('.ui.rating').eq(0).rating({
+        	initialRating: 0,
+        	maxRating: 5,
+        	onRate: function(index) {
+        		console.log(index);
+        	}
+      	});
+
+      	$('.ui.rating').eq(1).rating({
+        	initialRating: 0,
+        	maxRating: 5,
+        	onRate: function(index) {
+        		console.log(index);
+        	}
+      	});
+
+      	$('.ui.rating').eq(2).rating({
+        	maxRating: 4,
+        	interactive: false
+      	});
+	</script>
+</body>
+</html>
