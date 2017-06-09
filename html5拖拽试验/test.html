@@ -37,6 +37,7 @@
         <div class="item js-item drag-trigger" draggable="true">5</div>
         <div class="item js-item drag-trigger" draggable="true">6</div>
     </div>
+    <p class="js-txt"></p>
 <script>
     (function () {
         var app = {
@@ -46,6 +47,7 @@
                 this.$target = null;
                 this.$destination = null;
                 this.$targetClone = null;
+                this.$txt = $('.js-txt');
 
                 this.bindEvent();
             },
@@ -64,6 +66,7 @@
                 this.$target = $(e.target);
                 this.$targetClone = this.$target.clone().hide();
                 this.$target.after(this.$targetClone);
+                // e.dataTransfer.setDragImage(e.target, 0, 0); //拖动时出现的虚框
                 e.stopPropagation();
             },
 
@@ -87,6 +90,7 @@
             },
 
             onDropBody: function (e) {
+                this.$txt.html('');
                 this.$target.remove();
             },
 
@@ -96,6 +100,7 @@
             },
 
             onBodyDragover: function (e) {
+                this.$txt.html('删除');
                 e.preventDefault();
             }
         }
