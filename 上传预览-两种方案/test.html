@@ -29,19 +29,20 @@
 </head>
 <body>
     <div class="section">
+        <p>方案1</p>
         <input class="upload" type="file" onchange=onUpload1(this.files[0])>
         <div class="preview preview1"></div>
     </div>
 
     <div class="section">
+        <p>方案2</p>
         <input class="upload" type="file" onchange=onUpload2(this.files[0])>
         <div class="preview preview2"></div>
     </div>
     <script>
         function onUpload1 (file) {
-            console.log(file);
             var fr = new FileReader();
-            fr.readAsDataURL(file);
+            fr.readAsDataURL(file);  // 将文件读取为Data URL
 
             fr.onload = function(e) {
                 var result = e.target.result;
@@ -56,15 +57,20 @@
         }
 
         function onUpload2 (file) {
-            console.log(file);
-            var blob = new Blob([file]),
-                url = URL.createObjectURL(blob);
+            var blob = new Blob([file]),    // 文件转化成二进制文件
+                url = URL.createObjectURL(blob);    //转化成url
             if (/image/g.test(file.type)) {
                 var img = $('<img src="' + url + '">');
+                img[0].onload = function(e) {
+                    URL.revokeObjectURL(this.src);  // 释放createObjectURL创建的对象
+                }
                 $('.preview2').html('').append(img);
             } else if (/video/g.test(file.type)) {
-                var vidoe = $('<video controls src="' + url + '">');
-                $('.preview2').html('').append(vidoe);
+                var video = $('<video controls src="' + url + '">');
+                $('.preview2').html('').append(video);
+                video[0].onload = function(e) {
+                    URL.revokeObjectURL(this.src);  // 释放createObjectURL创建的对象
+                }
             }
         }
     </script>
