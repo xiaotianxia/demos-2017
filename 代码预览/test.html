@@ -23,7 +23,7 @@
 		}
 		.code-wrapper {
 			width: 100%;
-			height: 100%;
+			height: calc(100% - 150px);
 		}
 		.previewBtn {
 			display: inline-block;
@@ -81,12 +81,12 @@
 	</div>
 <script>
 	function onPreview () {
-		var code = $('.js-code').val(),
-			$preview = $('.js-preview'),
-			blob = new Blob([code], {
+		var code = $('.js-code').val(),  //获取代码字符串
+			$preview = $('.js-preview'), 
+			blob = new Blob([code], {  //注意一定要写type
 			  	'type': 'text/html'
 			}),
-			url = URL.createObjectURL(blob),
+			url = URL.createObjectURL(blob), //生成url
 			$iframe = $('<iframe src="' + url + '"></iframe>');
 		$preview.html('').append($iframe);
 	}
