@@ -11,18 +11,19 @@
         }
         html,
         body {
+            font-size: 12px;
             height: 100%;
         }
         .wrapper {
             position: relative;
-            width: 90%;
-            height: 90%;
-            max-width: 640px;
+            width: 100vw;
+            height: 100vh;
             margin: 0 auto;
             border: 1px solid #000;
         }
         video,
         button,
+        .button,
         canvas {
             position: absolute;
         }
@@ -37,9 +38,10 @@
         canvas {
             z-index: 99;
         }
-        button {
+        button,
+        .button {
+            display: inline-block;
             right: 20px;
-            top: 20px;
             border: 1px solid #000;
             outline: none;
             background-color: #333;
@@ -47,12 +49,19 @@
             padding: 5px 20px;
             z-index: 999;
         }
+        button.snap {
+            top: 20px;
+        }
+        .button.save {
+            top: 50px;
+        }
     </style>
 </head>
 <body>
-    <div class="wrapper">
+    <div class="wrapper js-wrapper">
         <video></video>
-        <button>拍照</button>
+        <button class="snap">拍照</button>
+        <a class="button save" download="test.png">保存</a>
         <canvas></canvas>
     </div>
 <script>
@@ -68,21 +77,27 @@
         stream => {
             let flag = true;
                 video = document.querySelector('video'),
-                button = document.querySelector('button'),
+                snapBtn = document.querySelector('.snap'),
+                saveBtn = document.querySelector('.save'),
                 canvas = document.querySelector('canvas'),
                 cxt = canvas.getContext('2d');
             video.srcObject = stream;
             //媒体头信息就绪
             video.onloadedmetadata = () => video.play();
 
-            button.onclick = () => {
+            snapBtn.onclick = () => {
                 if(flag) {
                     cxt.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    button.innerText = '重拍';
+                    snapBtn.innerText = '重拍';
                     flag = false;
+
+                    canvas.toBlob((blob) => {
+                        let url = URL.createObjectURL(blob);
+                            saveBtn.href = url;
+                    })
                 } else {
                     cxt.clearRect(0, 0, canvas.width, canvas.height);
-                    button.innerText = '拍照';
+                    snapBtn.innerText = '拍照';
                     flag = true;
                 }
             }
@@ -91,7 +106,6 @@
             alert('error: ' + err.message);
         }
     );
-    
 </script>
 </body>
 </html>
