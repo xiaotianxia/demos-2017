@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+        .wrapper {
+            display: inline-block;
+            height: 80px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .item {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            background-color: #900;
+            text-align: center;
+            line-height: 80px;
+            color: #fff;
+            margin-right: 10px;
+            cursor: move;
+        }
+    </style>
+</head>
+<body draggable="true">
+    <div class="wrapper js-wrapper">
+        <div class="item js-item drag-trigger" draggable="true">1</div>
+        <div class="item js-item drag-trigger" draggable="true">2</div>
+        <div class="item js-item drag-trigger" draggable="true">3</div>
+        <div class="item js-item drag-trigger" draggable="true">4</div>
+        <div class="item js-item drag-trigger" draggable="true">5</div>
+        <div class="item js-item drag-trigger" draggable="true">6</div>
+    </div>
+    <p class="js-txt"></p>
+<script>
+    (function () {
+        var app = {
+            init: function () {
+                this.$wrapper = $('.js-wrapper');
+                this.$items = this.$wrapper.find('.js-item');
+                this.$target = null;
+                this.$destination = null;
+                this.$targetClone = null;
+                this.$txt = $('.js-txt');
+
+                this.bindEvent();
+            },
+
+            bindEvent: function () {
+                $('body')[0].addEventListener('drop', $.proxy(this.onDropBody, this), false);
+                $('body')[0].addEventListener('dragstart', $.proxy(this.onBodyDragStart, this), false);
+                $('body')[0].addEventListener('dragover', $.proxy(this.onBodyDragover, this), false);
+                this.$wrapper[0].addEventListener('dragstart', $.proxy(this.onDragStart, this), false);
+                this.$wrapper[0].addEventListener('dragover', $.proxy(this.onDragover, this), false);
+                this.$wrapper[0].addEventListener('drop', $.proxy(this.onDrop, this), false);
+                this.$wrapper[0].addEventListener('dragend', $.proxy(this.onDragend, this), false);
+            },
+
+            onDragStart: function (e) {
+                this.$target = $(e.target);
+                this.$targetClone = this.$target.clone().hide();
+                this.$target.after(this.$targetClone);
+                // e.dataTransfer.setDragImage(e.target, 0, 0); //拖动时出现的虚框
+                e.stopPropagation();
+            },
+
+            onDragover: function (e) {
+                this.$txt.html('交换');
+                e.preventDefault();
+                e.stopPropagation();
+            },
+
+            onDrop: function (e) {
+                if($(e.target).hasClass('js-item')) {
+                    this.$destination = $(e.target);
+                    this.$destination.before(this.$target);
+                    this.$targetClone.after(this.$destination);
+                }
+                e.stopPropagation();
+                return;
+            },
+
+            onDragend: function (e) {
+                this.$txt.html('');
+                this.$targetClone.remove();
+            },
+
+            onDropBody: function (e) {
+                this.$txt.html('');
+                this.$target.remove();
+            },
+
+            onBodyDragStart: function (e) {
+                e.preventDefault();
+                return false;
+            },
+
+            onBodyDragover: function (e) {
+                this.$txt.html('删除');
+                e.preventDefault();
+            }
+        }
+        app.init();
+    })();
+</script>
+</body>
+</html>
