@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <script src="./CustomedEvent.js"></script>
+</head>
+<body>
+    <button class="js-bindBtn">绑定</button>
+    <button class="js-triggerBtn">触发</button>
+    <input class="textInput" type="text">
+
+    <input class="textInput2" type="text">
+<script>
+    let $bindBtn = document.querySelector('.js-bindBtn'),
+        $triggerBtn = document.querySelector('.js-triggerBtn'),
+        $input = document.querySelector('.textInput'),
+        $input2 = document.querySelector('.textInput2');
+    
+    $bindBtn.addEventListener('click', () => {
+        CustomedEvent.addCustomEvent({
+            name: 'btnPressed',
+            data: 'some text...',
+            callback (e) {
+                console.log(e.detail)
+                $input.value = e.detail;
+            }
+        });
+    });
+
+    $triggerBtn.addEventListener('click', () => {
+        CustomedEvent.trigger('btnPressed');
+    });
+
+    $input.addEventListener('input', e => {
+        CustomedEvent.addCustomEvent({
+            name: 'textChanged',
+            data: e.target.value,
+            callback(e) {
+                console.log(e.detail)
+                $input2.value = e.detail;
+            }
+        });
+        CustomedEvent.trigger('textChanged');
+    });
+</script>
+</body>
+</html>
