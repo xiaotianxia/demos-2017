@@ -73,7 +73,9 @@
     navigator.getUserMedia(
         { 
             audio: false, 
-            video: true
+            video: {
+                facingMode: 'user'
+            }
         },
         stream => {
             let flag = true;
