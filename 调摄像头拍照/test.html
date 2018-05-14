@@ -66,16 +66,14 @@
         <canvas></canvas>
     </div>
 <script>
-//     navigator.getUserMedia = navigator.getUserMedia 
-//                           || navigator.webkitGetUserMedia 
-//                           || navigator.mozGetUserMedia;
+    navigator.getUserMedia = navigator.getUserMedia 
+                          || navigator.webkitGetUserMedia 
+                          || navigator.mozGetUserMedia;
 
-    navigator.mediaDevices.getUserMedia(
+    navigator.getUserMedia(
         { 
             audio: false, 
-            video: {
-                facingMode: 'user'
-            }
+            video: true
         },
         stream => {
             let flag = true;
